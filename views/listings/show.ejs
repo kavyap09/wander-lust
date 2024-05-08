@@ -1,0 +1,53 @@
+<% layout("/layouts/boilerplate.ejs") -%>
+<body>
+    <div class="row mt-3">
+        <div class="col offset-2">
+    <h3>Listing Details:</h3>
+    <div class="card col-8 show-card">
+        <img src="<%=listing.image%>" class="card-img-top show-img" alt="image">
+        <div class="card-body">
+            <h5 class="card-title"><%= listing.title %></h5>
+            <p class="card-text">
+                <%= listing.description %> 
+                <li>&#8377; <%= listing.price.toLocaleString("en-IN") %>/night</li>
+                <li><%= listing.location %></li>
+                <li><%= listing.country %></li>
+            </p>
+    <div class="row">
+    <div class="col">
+        <a href="/listings/<%=listing._id%>/edit" class="btn btn-dark add-btn">Edit</a>
+      <br> <br>
+        <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+            <button class="btn btn-dark">Delete</button>
+        </form>
+        <hr>
+    </form>
+
+        <!-- review box -->
+        <div class="mb-3">
+            <h4>Leave a review</h4>
+            <form method="POST" action="/listings/<%=listing.id%>/reviews" novalidate class="needs-validation">
+              <div class="mb-3 mt-3"> 
+                <label for="rating" class="form-label">Rating</label> 
+                <input name="review[rating]" 
+                type="range" 
+                min="1" max="5"
+                 id="rating" 
+                 class="form-range">
+            </div>
+                <div class="rating mb-3">
+                <label for="comment" class="form-label"></label>
+                <textarea name="review[comments]" id="comment" class="form-control" cols="50" rows="3" required placeholder="Comments"></textarea>
+               <div class="invalid-feedback">Add some reviews </div>
+            </div>
+            <button class="btn btn-outline-dark">Submit</button>
+        </form>
+    </div>
+    <hr>
+    <h4>All reviews</h4>
+    <p><%=listing.reviews%></p>
+
+</div> 
+</body>
+
+
