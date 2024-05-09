@@ -28,7 +28,6 @@ main()
 async function main() {
   await mongoose.connect('mongodb://127.0.0.1:27017/wanderlust');
 }
-
 const validateListing =(req,res,next)=>{
     let result =listingSchema.validate(req.body);
     if(result.error){
@@ -55,9 +54,9 @@ app.get("/listings",wrapAsync(async(req,res)=>{
     res.render("listings/index.ejs",{allListings})
 }))
 //NEW route
-app.get("/listings/new",wrapAsync((req,res)=>{
+app.get("/listings/new",(req,res)=>{
     res.render("listings/new.ejs")
-}))
+})
 //Create ROUTE
 app.post(
     "/listings",
@@ -96,15 +95,14 @@ app.delete("/listings/:id",wrapAsync(async(req,res)=>{
 }))
 //REVIEWS-post
 app.post("/listings/:id/reviews",
-// validateReview,
-  wrapAsync(async (req,res)=>{
+    validateReview,
+    wrapAsync(async (req,res)=>{
     let {id}=req.params;
     let listing=await Listings.findById(id);
     let newReview=new Review(req.body.review);
     listing.reviews.push(newReview);
     await newReview.save()
     await listing.save()
-    // res.send("saved")
     res.redirect(`/listings/${id}`)
 }))
 app.all("*",(req,res,next)=>{

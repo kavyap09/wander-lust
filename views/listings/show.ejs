@@ -2,11 +2,10 @@
 <body>
     <div class="row mt-3">
         <div class="col offset-2">
-    <h3>Listing Details:</h3>
-    <div class="card col-8 show-card">
+    <h3><%= listing.title %></h3>
+    <div class="card col-8 show-card card-listing">
         <img src="<%=listing.image%>" class="card-img-top show-img" alt="image">
         <div class="card-body">
-            <h5 class="card-title"><%= listing.title %></h5>
             <p class="card-text">
                 <%= listing.description %> 
                 <li>&#8377; <%= listing.price.toLocaleString("en-IN") %>/night</li>
@@ -37,7 +36,7 @@
             </div>
                 <div class="rating mb-3">
                 <label for="comment" class="form-label"></label>
-                <textarea name="review[comments]" id="comment" class="form-control" cols="50" rows="3" required placeholder="Comments"></textarea>
+                <textarea name="review[comment]" id="comment" class="form-control" cols="50" rows="3" required placeholder="Comments"></textarea>
                <div class="invalid-feedback">Add some reviews </div>
             </div>
             <button class="btn btn-outline-dark">Submit</button>
@@ -46,7 +45,7 @@
     <hr>
     <h4>All reviews</h4>
     <p><%=listing.reviews%></p>
-
+</div>
 </div> 
 </body>
 
