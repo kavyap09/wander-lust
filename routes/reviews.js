@@ -3,8 +3,8 @@ const router=express.Router();
 const Listings=require('../models/listing.js')
 const wrapAsync=require("../utils/wrapAsync.js")
 const ExpressError=require("../utils/ExpressError.js")
- const {reviewSchema}=require("./schema.js");
- const Review = require("../models/review.js"); 
+const {reviewSchema}=require("./schema.js");
+const Review = require("../models/review.js"); 
 
 const validateReview=(req,res,next)=>{
     let result=reviewSchema.validate(req.body);
