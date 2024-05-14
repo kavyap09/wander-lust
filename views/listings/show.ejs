@@ -45,16 +45,20 @@
     <hr>
   <h4>All reviews</h4>
 
-      <!--    <div class="card-body review-card mt-3">
+         <div class="card-body review-card mt-3">
             <div class="card-title"><h5>Eve</h5></div>
-    <p class="card-text"/p>
-        <p class="card-text">stars</p>
+
+    <p class="card-text">
+       <b><%=reviews.comment%></b>
+       <%=reviews.rating%> stars
+    </p>
+       
     
     <form method="POST" action="/listing//reviews/?_method=DELETE">
     <button class="btn btn-outline-dark mb-3">
         Delete
     </button>
-    </form> -->
+    </form>
 </div> 
  
 </div>
