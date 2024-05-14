@@ -14,7 +14,7 @@
             </p>
     <div class="row">
     <div class="col">
-        <a href="/listings/<%=listing._id%>/edit" class="btn btn-dark add-btn">Edit</a>
+        <a href="/listings/<%=listing._id%>/edit" class="btn btn-danger add-btn">Edit</a>
       <br> <br>
         <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
             <button class="btn btn-dark">Delete</button>
@@ -43,8 +43,20 @@
         </form>
     </div>
     <hr>
-    <h4>All reviews</h4>
-    <p><%=listing.reviews%></p>
+  <h4>All reviews</h4>
+
+      <!--    <div class="card-body review-card mt-3">
+            <div class="card-title"><h5>Eve</h5></div>
+    <p class="card-text"/p>
+        <p class="card-text">stars</p>
+    
+    <form method="POST" action="/listing//reviews/?_method=DELETE">
+    <button class="btn btn-outline-dark mb-3">
+        Delete
+    </button>
+    </form> -->
+</div> 
+ 
 </div>
 </div> 
 </body>

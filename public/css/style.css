@@ -66,13 +66,14 @@ body{
 .listing-link{
     text-decoration: none;
 }
-.card-img-overlay{
+/* .card-img-overlay{
     opacity: 0;
-}
-.card-img-overlay:hover{
+} */
+/* .card-img-overlay:hover{
     opacity: 0.2;
     background-color: #fff;
-}
+/* } */ this you need to check at last and yet back */
+
 .add-btn{
     background-color:rgb(252, 55, 55) !important;
     border:none !important;
@@ -91,4 +92,9 @@ body{
 }
 .alert-box h4{
     font-size: 1rem !important;
+}
+/* review box */
+.review-card{
+    border:2px solid black;
+padding: 15px !important;
 }
