@@ -44,23 +44,22 @@
     </div>
     <hr>
   <h4>All reviews</h4>
-
+<div class="row  col-6 mb-3 ">
+<% for(review of listing.reviews){%>
          <div class="card-body review-card mt-3">
-            <div class="card-title"><h5>Eve</h5></div>
-
-    <p class="card-text">
-       <b><%=reviews.comment%></b>
-       <%=reviews.rating%> stars
-    </p>
-       
-    
-    <form method="POST" action="/listing//reviews/?_method=DELETE">
+            <div class="card-title">
+                <h5>Eve</h5>
+            </div>
+      <p class="card-text"><%=review.comment%></p>
+      <p class="card-text"><%=review.rating%></p>
+    <form method="POST" action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE">
     <button class="btn btn-outline-dark mb-3">
         Delete
     </button>
     </form>
 </div> 
- 
+<%}%>
+</div>
 </div>
 </div> 
 </body>
