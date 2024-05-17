@@ -46,8 +46,11 @@ async function main() {
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
     res.locals.del=req.flash("del");
-    res.locals.error=req.flash("error")
-    next()
+    next();
+});
+app.use((req,res,next)=>{
+    res.locals.error=req.flash("error");
+    next();
 })
 app.use("/listings",listings);
 app.use("/listings",reviews);
