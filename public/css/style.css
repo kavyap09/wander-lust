@@ -52,8 +52,9 @@ body{
 }
 /* cards */
 .card-listing{
-    border:none !important;
-    margin-bottom: 2rem;
+   border:none !important;
+   margin-bottom: 2rem;
+   position: relative;
 }
 .card img{
     border-top:1.2rem !important;
@@ -66,13 +67,15 @@ body{
 .listing-link{
     text-decoration: none;
 }
-/* .card-img-overlay{
+.card-img-overlay{
     opacity: 0;
-} */
-/* .card-img-overlay:hover{
+    position: absolute;
+}  
+.card-img-overlay:hover{
     opacity: 0.2;
     background-color: #fff;
-/* } */ this you need to check at last and yet back */
+}
+/* this you need to check at last and get back */ 
 
 .add-btn{
     background-color:rgb(252, 55, 55) !important;

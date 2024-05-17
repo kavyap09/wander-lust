@@ -50,8 +50,8 @@
             <div class="card-title">
                 <h5>Eve</h5>
             </div>
-      <p class="card-text"><%=review.comment%></p>
-      <p class="card-text"><%=review.rating%></p>
+      <p class="card-text"><b><%=review.comment%></b></p>
+      <p class="card-text"><%=review.rating%> &#9733;</i></p>
     <form method="POST" action="/listings/<%=listing._id%>/reviews/<%=review._id%>?_method=DELETE">
     <button class="btn btn-outline-dark mb-3">
         Delete
