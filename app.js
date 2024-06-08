@@ -7,9 +7,14 @@ const ejsMate=require("ejs-mate");
 const ExpressError=require("./utils/ExpressError.js")
 const session=require("express-session")
 const flash=require("connect-flash")
+const passport=require("passport");
+const LocalStrategy=require("passport-local");
+const User=require("./models/user.js")
 
-const listings=require("./routes/listing.js")
-const reviews=require("./routes/reviews.js")
+
+const listingRouter=require("./routes/listing.js")
+const reviewRouter=require("./routes/reviews.js")
+const userRouter=require("./routes/user.js")
 
 app.set("view engine","ejs");
 app.set("views",path.join(__dirname,"views"))
@@ -33,6 +38,12 @@ app.use(session(sessionOptions))
 app.use(flash())
 //flash
 
+app.use(passport.initialize());
+app.use(passport.session());
+passport.use(new LocalStrategy(User.authenticate()))
+
+passport.serializeUser(User.serializeUser());
+passport.deserializeUser(User.deserializeUser());
 main()
 .then(()=>{
     console.log("connection successfull")
@@ -53,9 +64,19 @@ app.use((req,res,next)=>{
     res.locals.error=req.flash("error");
     next();
 })
+//THIS WORK WE WILL DIRECTLY DO IN POST ROUTE 
+// app.get("/registerUser",async (req,res)=>{
+//  let fakeUser=new User({
+//     email:"stu@mail.com",
+//     username:"deltaStudent"
+//  });
+//  let regUser=await User.register(fakeUser,"helloworld")
+//  res.send(regUser);
+// })
 //routes
-app.use("/listings",listings);
-app.use("/listings",reviews);
+app.use("/listings",listingRouter);
+app.use("/listings",reviewRouter);
+app.use("/",userRouter)
 // app.use("/listings/:id/reviews",reviews);
 
 app.all("*",(req,res,next)=>{
