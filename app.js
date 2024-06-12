@@ -58,12 +58,11 @@ async function main() {
 app.use((req,res,next)=>{
     res.locals.success=req.flash("success");
     res.locals.del=req.flash("del");
+    res.locals.error=req.flash("error");
+    res.locals.currentUser=req.user;
     next();
 });
-app.use((req,res,next)=>{
-    res.locals.error=req.flash("error");
-    next();
-})
+
 //THIS WORK WE WILL DIRECTLY DO IN POST ROUTE 
 // app.get("/registerUser",async (req,res)=>{
 //  let fakeUser=new User({
