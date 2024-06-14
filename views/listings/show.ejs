@@ -6,22 +6,26 @@
     <div class="card col-8 show-card card-listing">
         <img src="<%=listing.image%>" class="card-img-top show-img" alt="image">
         <div class="card-body">
-            <p class="card-text">
-                <%= listing.description %> 
-                <li>&#8377; <%= listing.price.toLocaleString("en-IN") %>/night</li>
-                <li><%= listing.location %></li>
-                <li><%= listing.country %></li>
-            </p>
-    <div class="row">
-    <div class="col">
-        <a href="/listings/<%=listing._id%>/edit" class="btn btn-danger add-btn">Edit</a>
-      <br> <br>
-        <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
-            <button class="btn btn-dark">Delete</button>
+           
+               <p class="card-text"> owned by:<i><%=listing.owner.username%></i></p>
+               <p class="card-text"> <%= listing.description %></p> 
+                <p class="card-text">&#8377; <%= listing.price.toLocaleString("en-IN") %>/night</p>
+               <p class="card-text"> <%= listing.location %></p>
+              <p class="card-text">  <%= listing.country %></p>
+            
+<%if(currentUser && currentUser._id.equals(listing.owner._id)){%>
+<div class="btns">
+    <a href="/listings/<%=listing._id%>/edit" class="btn btn-danger add-btn">Edit</a>
+    <br> <br>
+      <form method="POST" action="/listings/<%=listing._id%>?_method=DELETE">
+          <button class="btn btn-dark">Delete</button>
         </form>
+        </div>
         <hr>
     </form>
+    <%}%>
 
+    <%if(currentUser){%>
         <!-- review box -->
         <div class="mb-3">
             <h4>Leave a review</h4>
@@ -42,13 +46,14 @@
             <button class="btn btn-outline-dark">Submit</button>
         </form>
     </div>
+    <%}%>
     <hr>
   <h4>All reviews</h4>
 <div class="row  col-6 mb-3 ">
 <% for(review of listing.reviews){%>
          <div class="card-body review-card mt-3">
             <div class="card-title">
-                <h5>Eve</h5>
+                <h5>@<%=review.author.username%></h5>
             </div>
       <p class="card-text"><b><%=review.comment%></b></p>
       <p class="card-text"><%=review.rating%> &#9733;</i></p>
