@@ -5,7 +5,9 @@ const wrapAsync=require("../utils/wrapAsync.js")
 const ExpressError=require("../utils/ExpressError.js")
 const {listingSchema}=require("../schema.js")
 const {isLoggedin,isOwner}=require("../middleware.js")
-
+const multer=require("multer")
+const {storage}=require("../cloudConfig.js")
+const upload=multer({dest:storage})
 const {index,renderNewform,newListing,showListing,renderEditform,updateListing,deleteListing}=require("../controllers/listing.js")
 
 const validateListing =(req,res,next)=>{
@@ -17,16 +19,23 @@ const validateListing =(req,res,next)=>{
         next()
     }
 }
-
+//check controllers-listing.js for the functionalities
+router
+.route("/")
 //index route
-router.get("/",wrapAsync(index))//check controllers-listing.js for the functionalities
+.get(wrapAsync(index))
+//create route
+// .post(          
+//     isLoggedin,
+//     validateListing,
+//      wrapAsync(newListing)
+//     )
+.post(upload.single('listing[image]'),(req,res)=>
+res.send(req.file)
+)
 //NEW route
 router.get("/new",isLoggedin,renderNewform)
 //Create ROUTE
-router.post(
-    "/",
-    isLoggedin,isOwner,validateListing,
-     wrapAsync(newListing))
 
 //show route  (read)
 router.get("/:id",wrapAsync(showListing))
@@ -37,12 +46,12 @@ isLoggedin,isOwner,
 wrapAsync(renderEditform))
 
 //UPDATE ROUTE
-router.put("/:id",
+router.route("/id")
+.put(
 isLoggedin,validateListing,
  wrapAsync(updateListing))
-
 //delete route
-router.delete("/:id",
+.delete(
     isLoggedin,isOwner,
     wrapAsync(deleteListing))
 
