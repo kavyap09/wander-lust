@@ -11,10 +11,8 @@ const listingSchema= new mongoose.Schema({
         type:String
     },
     image:{
-        type:String,
-        default:
-            'https://unsplash.com/photos/man-sitting-on-rock-surrounded-by-water--Q_t4SCN8c4',
-        set:(v)=> v===""?'https://unsplash.com/photos/man-sitting-on-rock-surrounded-by-water--Q_t4SCN8c4':v,
+        url:String,
+        filename:String
     },
     price:{
         type:Number,

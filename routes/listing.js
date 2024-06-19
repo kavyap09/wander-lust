@@ -7,7 +7,7 @@ const {listingSchema}=require("../schema.js")
 const {isLoggedin,isOwner}=require("../middleware.js")
 const multer=require("multer")
 const {storage}=require("../cloudConfig.js")
-const upload=multer({dest:storage})
+const upload=multer({storage:storage})
 const {index,renderNewform,newListing,showListing,renderEditform,updateListing,deleteListing}=require("../controllers/listing.js")
 
 const validateListing =(req,res,next)=>{
@@ -25,34 +25,33 @@ router
 //index route
 .get(wrapAsync(index))
 //create route
-// .post(          
-//     isLoggedin,
-//     validateListing,
-//      wrapAsync(newListing)
-//     )
-.post(upload.single('listing[image]'),(req,res)=>
-res.send(req.file)
+.post(          
+    isLoggedin,
+    upload.single('listing[image]'),
+    validateListing, 
+     wrapAsync(newListing)
 )
+
 //NEW route
 router.get("/new",isLoggedin,renderNewform)
-//Create ROUTE
-
 //show route  (read)
 router.get("/:id",wrapAsync(showListing))
-
 //edit route
 router.get("/:id/edit",
 isLoggedin,isOwner,
 wrapAsync(renderEditform))
 
-//UPDATE ROUTE
 router.route("/id")
+//UPDATE ROUTE
 .put(
-isLoggedin,validateListing,
+isLoggedin,
+upload.single('listing[image]'),
+validateListing,
  wrapAsync(updateListing))
 //delete route
 .delete(
     isLoggedin,isOwner,
-    wrapAsync(deleteListing))
+    wrapAsync(deleteListing)
+)
 
 module.exports=router;
