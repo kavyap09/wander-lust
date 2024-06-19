@@ -7,8 +7,11 @@ module.exports.renderNewform=(req,res)=>{
     res.render("listings/new.ejs")
 }
 module.exports.newListing=(async (req,res,next)=>{
+    let url=req.file.path;
+    let filename=req.file.filename
     const newListing=new Listings(req.body.listing);
     newListing.owner=req.user._id;
+    newListing.image={url,filename}//saving url and filename in new listin
     await newListing.save()
     req.flash("success","New listing Created!")
     res.redirect("/listings")
@@ -39,7 +42,14 @@ module.exports.renderEditform=(async (req,res)=>{
 })
 module.exports.updateListing=(async (req,res)=>{
     let {id}=req.params;
-    await Listings.findByIdAndUpdate(id,{...req.body.listing});
+    let updatedListing=await Listings.findByIdAndUpdate(id,{...req.body.listing});
+    if(typeof req.file !=="undefined"){//if only file exists then only this will execute
+        let url=req.file.path;
+        let filename=req.file.filename
+        updatedListing.image={url,filename};
+        await updatedListing.save()
+    }
+
     req.flash("success","Review Updated!")
     res.redirect(`/listings/${id}`)
 })
