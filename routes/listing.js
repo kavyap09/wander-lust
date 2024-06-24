@@ -41,7 +41,7 @@ router.get("/:id/edit",
 isLoggedin,isOwner,
 wrapAsync(renderEditform))
 
-router.route("/id")
+router.route("/:id")
 //UPDATE ROUTE
 .put(
 isLoggedin,

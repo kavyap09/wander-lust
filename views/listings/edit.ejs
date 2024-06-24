@@ -13,12 +13,14 @@
             <label for="description" class="form-label">Description</label>
         <input type="text" value="<%=listing.description%>" name="listing[description]" class="form-control" required>
         </div>
-          <div class="mb-3">
-                <p>hello</p>
-            <img src="<%=listing.image.url%>">
+        <br>
+          <div class="mb-3 img-edit">
+                Orginal image
+                <br>
+         <img src="<%=originalImageUrl%>"><!-- less quality image -->
           </div>
-        <div>
-            <label for="image" class="form-label">Upload Image</label>
+        <div class="mb-3"> 
+        <label for="image" class="form-label">Upload New Image</label>
         <input type="file" name="listing[image]" class="form-control" >
      </div>
 

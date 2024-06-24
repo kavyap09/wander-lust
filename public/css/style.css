@@ -100,8 +100,19 @@ body{
 /* review box */
 .review-card{
     border:2px solid black;
-padding: 15px !important;
+    padding: 15px !important;
+   width:25rem;
 }
 .revcard{
     display:inline-block !important;
 }
+
+.img-edit img{
+    width:15rem;
+}
+/* MAP */
+#map { 
+  height:400px;
+  width:80vh;
+}
+

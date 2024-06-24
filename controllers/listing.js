@@ -1,4 +1,10 @@
-const Listings=require("../models/listing.js")
+const Listings=require("../models/listing.js");
+const mbxGeocoding = require('@mapbox/mapbox-sdk/services/geocoding');
+const mapToken = process.env.MAP_TOKEN;
+
+const geocodingClient = mbxGeocoding({ accessToken: mapToken });
+
+
 module.exports.index=(async(req,res)=>{
     const allListings= await Listings.find({})
     res.render("listings/index.ejs",{allListings})
@@ -6,13 +12,24 @@ module.exports.index=(async(req,res)=>{
 module.exports.renderNewform=(req,res)=>{
     res.render("listings/new.ejs")
 }
+//create listing
 module.exports.newListing=(async (req,res,next)=>{
+        // Forward geocode the query
+        let response = await geocodingClient.forwardGeocode({
+          query: req.body.listing.location,
+          limit: 1,
+        })
+        .send();
     let url=req.file.path;
     let filename=req.file.filename
     const newListing=new Listings(req.body.listing);
     newListing.owner=req.user._id;
     newListing.image={url,filename}//saving url and filename in new listin
-    await newListing.save()
+    
+    newListing.geometry=response.body.features[0].geometry;
+   let savedListing= await newListing.save();
+   console.log(savedListing);
+
     req.flash("success","New listing Created!")
     res.redirect("/listings")
 })
@@ -39,8 +56,8 @@ module.exports.renderEditform=(async (req,res)=>{
         res.redirect("/listings")
     }
     let originalImageUrl=listing.image.url;
-    originalImageUrl=originalImageUrl.replace("/upload","/upload/w_250")
-    res.render("listings/edit.ejs",{listing})
+    originalImageUrl=originalImageUrl.replace("/upload","/upload/e_blur:200")//here we trying to drop the quality of the image
+    res.render("listings/edit.ejs",{listing,originalImageUrl})
 })
 module.exports.updateListing=(async (req,res)=>{
     let {id}=req.params;
