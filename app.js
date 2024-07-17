@@ -89,9 +89,9 @@ app.use((err,req,res,next)=>{
  let {status=500,message="error "}=err;
 res.render("error.ejs",{message})
 })
-app.get("/",(req,res)=>{
-    res.send("helo this is port 8080!")
-});
+// app.get("/",(req,res)=>{
+//     res.send("helo this is port 8080!")
+// });
 app.listen(8080,()=>{
     console.log("server is listening to port :8080")
 })

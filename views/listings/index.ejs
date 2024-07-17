@@ -1,9 +1,14 @@
 <% layout("/layouts/boilerplate.ejs") -%>
 <body>
-    <h3>All Listings</h3>
+    
     <!-- <form method="GET" action="/listings/new">
         <button>Create a NEW listings</button>
     </form> -->
+    <div id="filters">
+      <div class="filter">
+        <i class="fa-solid fa-fire"></i>Trending
+      </div>
+    </div>
     <div class="row row-cols-lg-3 row-cols-md-2 row-cols-small-1">
       <%for(let listing of allListings){%>
        
