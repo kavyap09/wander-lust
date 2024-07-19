@@ -1,7 +1,8 @@
 <% layout("/layouts/boilerplate.ejs") -%>
-<script>
+<script>// this is for .env for that file to access the maptoken and listing since we cannot require directly in that file
     const mapToken="<%=process.env.MAP_TOKEN%>"
     const listing="<%-JSON.stringify(listing)%>"
+    
 </script>
     <div class="row mt-3">
         <div class="col offset-2">
@@ -82,7 +83,9 @@
  
 </div>
 </div> 
+
 <script src="/js/map.js"></script>
+
 
 
 
